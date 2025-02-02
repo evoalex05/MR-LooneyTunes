@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿namespace TheMaze;
 public class MazeGenerator
 {
     private int size;
@@ -11,7 +10,7 @@ public class MazeGenerator
         this.size = size < 3 ? 3 : size;
         maze = new char[this.size + 2, this.size + 2]; // +2 para el borde de paredes
 
-        // Inicializa el laberinto con paredes
+            // Inicializa el laberinto con paredes
         for (int i = 0; i < maze.GetLength(0); i++)
         {
             for (int j = 0; j < maze.GetLength(1); j++)
@@ -23,7 +22,7 @@ public class MazeGenerator
 
     public char[,] GenerateMaze()
     {
-        // Comienza el backtracking desde una celda aleatoria dentro del laberinto
+            // Comienza el backtracking desde una celda aleatoria dentro del laberinto
         int startX = random.Next(1, size + 1);
         int startY = random.Next(1, size + 1);
         CarvePassages(startX, startY);
@@ -38,14 +37,14 @@ public class MazeGenerator
             (2, 0), (-2, 0), (0, 2), (0, -2)
         };
 
-        // Mezcla las direcciones para aleatoriedad
+            // Mezcla las direcciones para aleatoriedad
         Shuffle(directions);
         foreach (var (dx, dy) in directions)
         {
             int nx = x + dx;
             int ny = y + dy;
             
-            // Verifica si la nueva posición está dentro de los límites
+                // Verifica si la nueva posición está dentro de los límites
             
             if (nx > 0 && nx <= size && ny > 0 && ny <= size && maze[ny, nx] == '█')
             {
@@ -66,7 +65,7 @@ public class MazeGenerator
         }
     }
     public void PrintMaze()
-    {
+    {   
         for (int i = 0; i < maze.GetLength(0); i++)
         {
             for (int j = 0; j < maze.GetLength(1); j++)
@@ -76,4 +75,10 @@ public class MazeGenerator
             Console.WriteLine();
         }
     }
+
+    public char[,] GetMaze()
+    {
+        return maze; // Método para obtener la matriz del laberinto
+    }      
+
 }

@@ -7,4 +7,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Code/Game/Cells/Cells.csproj" />
+    <ProjectReference Include="../Code/Game/GameManager/GameManager.csproj" />
+    <ProjectReference Include="../Code/Game/TheMaze/TheMaze.csproj" />
+  </ItemGroup>
+
 </Project>

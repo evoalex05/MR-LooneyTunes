@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace 
+
+namespace Character;
 public class Personaje
 {
     public string Nombre { get; private set; }
@@ -35,8 +36,8 @@ public class Personaje
 
     }
 
-    public void UsarHabilidad(Personaje objetivo)
-    {
+
+    public void UsarHabilidad(Personaje objetivo){
         if (tiempoEnfriamientoActual > 0)
         {
             Console.WriteLine($"{Nombre} no puede usar la habilidad '{habilidadActual}' porque está en enfriamiento ({tiempoEnfriamientoActual} turnos restantes).");
@@ -57,12 +58,28 @@ public class Personaje
     }
 
     private void Disparo(Personaje objetivo)
-    {
-        // Suponiendo que el objetivo está a una casilla de distancia
-        Console.WriteLine($"{Nombre} usa 'Disparo' en {objetivo.Nombre}. {objetivo.Nombre} vuelve al inicio.");
-        
-    }
 
+    {
+
+        // Calcular la distancia entre el personaje que dispara y el objetivo
+
+        int distanciaX = Math.Abs(PosicionActual.PosX - objetivo.PosicionActual.PosX);
+
+        int distanciaY = Math.Abs(PosicionActual.PosY - objetivo.PosicionActual.PosY);
+
+        // Verificar si el objetivo está a una casilla de distancia
+        if (distanciaX + distanciaY == 1) // Movimiento en línea recta (horizontal o vertical)
+        {
+            Console.WriteLine($"{Nombre} usa 'Disparo' en {objetivo.Nombre}.");
+            
+            // Llama al método VolverAlInicio del objetivo
+            objetivo.VolverAlInicio();
+        }
+        else
+        {
+            Console.WriteLine($"{objetivo.Nombre} está fuera de alcance para el 'Disparo'.");
+        }
+    }
     private void DimensionBolsillo()
     {
         Console.WriteLine($"{Nombre} usa 'DimensionBolsillo' y coloca una trampa en una casilla adyacente.");
@@ -74,7 +91,7 @@ public class Personaje
         {
             tiempoEnfriamientoActual--;
         }
-        
+    
         if (congelado)
         {
             turnosCongelado--;
@@ -99,7 +116,7 @@ public class Personaje
             case "Disparo":
                 return 7; // Tiempo de enfriamiento para Disparo
             case "DimensionBolsillo":
-                return 3; // Puedes definir un tiempo de enfriamiento para DimensionBolsillo
+                return 3; // Definir un tiempo de enfriamiento para DimensionBolsillo
             default:
                 return 0;
         }
@@ -125,7 +142,6 @@ public class Personaje
     {
         return !congelado;
     }
-
 }
 
 public class FichaJugable
